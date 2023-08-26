@@ -12,13 +12,13 @@
 #include "MCAL/Gpio/Gpio.h"
 #include "MCAL/Rcc/Rcc.h"
 #include "MCAL/Usart/Usart.h"
+#include "MCAL/PWM/PWM.h"
 #include "HAL/Lcd/Lcd.h"
 #include "HAL/DC_Motor/DC_Motor.h"
+#include "HAL/Servo_Motor/Servo_Motor.h"
 #include "Libraries/Std_Types.h"
 #include "Libraries/Utils.h"
 #include "Services/Services.h"
-
-#include "MCAL/PWM/PWM.h"
 
 /*******************************************************************************
  *                                Definitions                                  *
@@ -33,9 +33,6 @@
 /* DC Motor Directions */
 #define DC_MOTOR_FORWARD ANTI_CLOCKWISE
 #define DC_MOTOR_BACKWARD CLOCKWISE
-
-
-
 
 /*******************************************************************************
  *                            Global Variables                                 *
@@ -55,8 +52,11 @@ int main () {
 	Usart2_Init();
 	/* Initialize the DC Motors */
 	DC_Motor_Init();
+	/* Initialize the Servo Motor */
+	Servo_Motor_Init();
 
-//	setup_PWM();
+
+//	setup_PWM_2();
 //
 //	set_PWM_duty_cycle(100);
 //

@@ -23,7 +23,7 @@
 void DC_Motor_Init(void){
     Rcc_Enable(DC_MOTOR_PORT);
 
-    setup_PWM();
+    setup_PWM_1();
 
     /* Configure Output pins for DC Motor */
 	Gpio_ConfigPin(DC_MOTOR_PORT, DC_MOTOR_INPUT_1, GPIO_OUTPUT, GPIO_PUSH_PULL, NOT_INPUT);
@@ -37,7 +37,7 @@ void DC_Motor_SetSpeed(uint8 speed){
     if(speed > 100){
         speed = 100;
     }
-    set_PWM_duty_cycle(speed);
+    set_PWM_1_duty_cycle(speed);
 }
 
 void DC_Motor_SetDirection(uint8 direction){

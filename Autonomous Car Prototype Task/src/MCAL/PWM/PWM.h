@@ -10,8 +10,12 @@
 
 #include "../../Libraries/Std_Types.h"
 
-void setup_PWM(void);
+void setup_PWM_1(void);
 
-void set_PWM_duty_cycle(uint8 percentage);
+void setup_PWM_2(void);
+
+void set_PWM_1_duty_cycle(uint8 percentage);
+
+void set_PWM_2_duty_cycle(uint8 percentage);
 
 #endif /* PWM_H_ */
