@@ -16,27 +16,28 @@
 #include "../Libraries/Utils.h"
 #include "../MCAL/Gpio/Gpio.h"
 #include "../MCAL/Rcc/Rcc.h"
-// #include "DC_Motor_Interface.h"
+#include "../../MCAL/PWM/PWM.h"
+
 
 
 void DC_Motor_Init(void){
     Rcc_Enable(DC_MOTOR_PORT);
+
+    setup_PWM();
 
     /* Configure Output pins for DC Motor */
 	Gpio_ConfigPin(DC_MOTOR_PORT, DC_MOTOR_INPUT_1, GPIO_OUTPUT, GPIO_PUSH_PULL, NOT_INPUT);
 	Gpio_WritePinValue(DC_MOTOR_PORT, DC_MOTOR_INPUT_1, LOW);
 	Gpio_ConfigPin(DC_MOTOR_PORT, DC_MOTOR_INPUT_2, GPIO_OUTPUT, GPIO_PUSH_PULL, NOT_INPUT);
 	Gpio_WritePinValue(DC_MOTOR_PORT, DC_MOTOR_INPUT_1, LOW);
-    Gpio_ConfigPin(DC_MOTOR_PORT, DC_MOTOR_ENABLE_1, GPIO_OUTPUT, GPIO_PUSH_PULL, NOT_INPUT);
-    Gpio_WritePinValue(DC_MOTOR_PORT, DC_MOTOR_ENABLE_1, HIGH);
+
 }
 
 void DC_Motor_SetSpeed(uint8 speed){
     if(speed > 100){
         speed = 100;
     }
-    Gpio_WritePinValue(DC_MOTOR_PORT, DC_MOTOR_INPUT_1, speed);
-    // pwm 
+    set_PWM_duty_cycle(speed);
 }
 
 void DC_Motor_SetDirection(uint8 direction){

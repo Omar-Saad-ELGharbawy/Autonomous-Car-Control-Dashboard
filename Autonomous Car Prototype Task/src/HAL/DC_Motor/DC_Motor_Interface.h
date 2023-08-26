@@ -19,7 +19,7 @@
 #define DC_MOTOR_INPUT_1  0
 #define DC_MOTOR_INPUT_2  1
 
-#define DC_MOTOR_ENABLE_1  2
+#define DC_MOTOR_ENABLE_1  8
 
 
 
