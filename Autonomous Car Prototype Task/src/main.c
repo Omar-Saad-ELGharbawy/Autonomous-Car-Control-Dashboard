@@ -139,12 +139,13 @@ int main () {
 			break;
 		case CHECK_FRAME:
 			if(check_frame(frame)){
-				Usart2_TransmitString("Valid Frame : ");
+				Usart2_TransmitString("  Valid Frame : ");
 				Usart2_TransmitString(frame);
 				use_case = EXTRACT_DATA;
 			} else {
 				//Un-Valid Frame
-				Usart2_TransmitString("Un-Valid Frame \n Please Enter Valid Frame :");
+				Usart2_TransmitString(frame);
+				Usart2_TransmitString("  Un-Valid Frame \n Please Enter Valid Frame :");
 				use_case = RECEIVE_FRAME;
 			}
 			break;
@@ -157,6 +158,7 @@ int main () {
 				Usart2_TransmitString("\n Valid Data ");
 				use_case = MOVE_MOTORS;
 			} else {
+				Usart2_TransmitString(frame);
 				Usart2_TransmitString("\n Un-Valid Data \n Please Enter Valid Data :");
 				use_case = RECEIVE_FRAME;
 			}

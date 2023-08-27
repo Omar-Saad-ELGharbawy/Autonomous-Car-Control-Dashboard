@@ -91,17 +91,17 @@ uint8 check_data(FrameType * frame_data_ptr){
 void update_frame_dashboard(FrameType * frame_data_ptr){
 	/* clear the LCD display */
 //	LCD_clearScreen();
-	LCD_displayStringRowColumn(0,3,"  Speed:    % Direction: ");
+	LCD_displayStringRowColumn(0,3,"Speed:    % Direction: ");
 	LCD_moveCursor(0, 9);
 	LCD_intgerToString(frame_data_ptr->motor_speed);
-	LCD_moveCursor(0, 26);
+	LCD_moveCursor(0, 27);
 	if (frame_data_ptr->second_motor_direction == 'L' ){
 	LCD_displayCharacter('-');
 	}else
 	{
 	LCD_displayCharacter('+');
 	}
-	LCD_moveCursor(0, 27);
+	LCD_moveCursor(0, 28);
 	LCD_intgerToString(frame_data_ptr->wheels_angle);
 }
 
