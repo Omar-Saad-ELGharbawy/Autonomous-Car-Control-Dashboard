@@ -88,12 +88,11 @@ uint8 check_data(FrameType * frame_data_ptr){
 	}
 }
 
-void update_dashboard(FrameType * frame_data_ptr){
+void update_frame_dashboard(FrameType * frame_data_ptr){
 	/* clear the LCD display */
-	LCD_clearScreen();
-	LCD_displayStringRowColumn(0,3,"Speed:    % Direction: ");
-	LCD_displayStringRowColumn(1,7,"Time: xx:xx:xx AM");
-	LCD_moveCursor(0, 10);
+//	LCD_clearScreen();
+	LCD_displayStringRowColumn(0,3,"  Speed:    % Direction: ");
+	LCD_moveCursor(0, 9);
 	LCD_intgerToString(frame_data_ptr->motor_speed);
 	LCD_moveCursor(0, 26);
 	if (frame_data_ptr->second_motor_direction == 'L' ){
@@ -104,10 +103,20 @@ void update_dashboard(FrameType * frame_data_ptr){
 	}
 	LCD_moveCursor(0, 27);
 	LCD_intgerToString(frame_data_ptr->wheels_angle);
-	// LCD_displayStringRowColumn(0,10,speed_str);
-	////	LCD_displayStringRowColumn(0,26,direction_str);
 }
 
+/* Update LCD Dashboard with time data*/
+void update_time_dashboard(uint8 seconds, uint8 minutes, uint8 hours,uint8 g_day_night[]){
+	/* clear the LCD display */
+	LCD_displayStringRowColumn(1,7,"Time:   :  :   ");
+	LCD_moveCursor(1, 13);
+	LCD_intgerToString(hours);
+	LCD_moveCursor(1, 16);
+	LCD_intgerToString(minutes);
+	LCD_moveCursor(1, 19);
+	LCD_intgerToString(seconds);
+	LCD_displayStringRowColumn(1,22,g_day_night);
+}
 
 
 int convertToInt(uint8 str[]) {
@@ -178,6 +187,6 @@ char* convertToString(int number) {
 
 void delay_ms(uint32 ms){
 	/*wait 1s by for loop*/
-	for(uint32 i = 0; i < ms*ONE_MS_TICKS; i++)
+	for(uint32 i = 0; i < ms; i++)
 	{}
 }

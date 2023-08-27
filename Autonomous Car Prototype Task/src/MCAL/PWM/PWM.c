@@ -29,8 +29,8 @@ void setup_PWM_1(void)
   TIM1->CCMR1 |= TIM_CCMR1_OC1PE;  // Enable preload for CCR1
   TIM1->CCER |= TIM_CCER_CC1E;  // Enable output for Channel 1
 
-  // Set the initial duty cycle to 50%
-  TIM1->CCR1 = 1000-1;
+  // Set the initial duty cycle to 0%
+  TIM1->CCR1 = 0;
 
   // Enable Timer 1
   TIM1->CR1 |= TIM_CR1_CEN;
@@ -61,7 +61,7 @@ void setup_PWM_2(void)
   TIM2->CCER |= TIM_CCER_CC2E;  // Enable output for Channel 2
 
   // Set the initial duty cycle for Channel 2 of Timer 2
-  TIM2->CCR2 = 750;
+  TIM2->CCR2 = 0;
 
   // Enable Timer 2
   TIM2->CR1 |= TIM_CR1_CEN;
@@ -79,6 +79,6 @@ void set_PWM_1_duty_cycle(uint8 percentage)
 void set_PWM_2_duty_cycle(uint8 percentage)
 {
   uint16_t desired_duty_cycle = (percentage / 100.0) * (TIM2->ARR + 1);
-  TIM2->CCR1 = desired_duty_cycle;
+  TIM2->CCR2 = desired_duty_cycle;
 }
 

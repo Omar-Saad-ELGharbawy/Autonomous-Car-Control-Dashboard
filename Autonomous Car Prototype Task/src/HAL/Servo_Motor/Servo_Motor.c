@@ -8,6 +8,7 @@
 #include "Servo_Motor.h"
 
 #include "../../MCAL/PWM/PWM.h"
+#include "../../Services/Services.h"
 
 
 void Servo_Motor_Init(void){
@@ -17,5 +18,8 @@ void Servo_Motor_Init(void){
 
 void Servo_Motor_SetAngle(uint8 angle){
     /* Set the angle of the servo motor */
-	set_PWM_2_duty_cycle(angle);
+	set_PWM_2_duty_cycle(angle+55);
+//	delay_ms(1500); 8
+	delay_ms(1801);
+	set_PWM_2_duty_cycle(0);
 }

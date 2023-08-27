@@ -52,7 +52,9 @@ void extract_data(uint8 *frame , FrameType * frame_data_ptr);
 
 uint8 check_data(FrameType * frame_data_ptr);
 
-void update_dashboard(FrameType * frame_data_ptr);
+void update_frame_dashboard(FrameType * frame_data_ptr);
+
+void update_time_dashboard(uint8 seconds, uint8 minutes, uint8 hours,uint8 g_day_night[]);
 
 int convertToInt(uint8 str[]);
 
