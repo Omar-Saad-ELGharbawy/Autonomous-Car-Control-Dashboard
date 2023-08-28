@@ -7,9 +7,17 @@
 
 
 #include "stm32f4xx.h"
-
 #include "PWM.h"
 
+/*
+  * Function : setup_PWM_1
+  * Input : void
+  * Output : void
+  * Description :
+  * Enable Clock for used GPIO PORTs using Static Configurationin .
+  * Setup PWM signal for motor speed control
+  * Configure GPIO Pins for Motor Driver
+*/
 void setup_PWM_1(void)
 {
   // Enable the clock for Timer 1 and GPIO Port A
@@ -38,8 +46,39 @@ void setup_PWM_1(void)
   // Enable the PWM output
   TIM1->BDTR |= TIM_BDTR_MOE;
 }
-#include "stm32f4xx.h"
 
+/*
+  * Function : set_PWM_1_duty_cycle
+  * Input : percentage
+  * Output : void
+  * Description :
+  * Set PWM duty cycle for motor speed control
+*/
+void set_PWM_1_duty_cycle(uint8 percentage)
+{
+  uint16_t desired_duty_cycle = (percentage / 100.0) * (TIM1->ARR + 1);
+  TIM1->CCR1 = desired_duty_cycle;
+}
+/*
+  * Function : set_PWM_1_CCR2
+  * Input : ticks
+  * Output : void
+  * Description :
+  * set number of required ticks in  capture/compare register
+*/
+void set_PWM_1_CCR2(uint32 ticks)
+{
+  TIM2->CCR1 = ticks;
+}
+/*
+  * Function : setup_PWM_2
+  * Input : void
+  * Output : void
+  * Description :
+  * Enable Clock for used GPIO PORTs using Static Configurationin .
+  * Setup PWM signal for motor speed control
+  * Configure GPIO Pins for Motor Driver
+*/
 void setup_PWM_2(void)
 {
   // Enable the clock for Timer 2, and GPIO Port A
@@ -52,8 +91,8 @@ void setup_PWM_2(void)
   GPIOA->AFR[0] |= (0x1 << ((1 - 0) * 4));  // Connect PA1 to AF1 (TIM2)
 
   // Configure Timer 2 for PWM generation
-  TIM2->PSC = 84 - 1;  // Set the prescaler to achieve a 1 MHz clock for TIM2
-  TIM2->ARR = 1000 - 1;  // Set the PWM period to 1000 cycles
+  TIM2->PSC = 16 - 1;  // Set the prescaler to achieve a 1 MHz clock for TIM2
+  TIM2->ARR = 10000;  // Set the PWM period to 1000 cycles
 
   // Configure Channel 2 of Timer 2 for PWM output
   TIM2->CCMR1 |= TIM_CCMR1_OC2M_1 | TIM_CCMR1_OC2M_2;  // PWM mode 1
@@ -69,13 +108,27 @@ void setup_PWM_2(void)
   // Enable the PWM output for Timer 2
   TIM2->BDTR |= TIM_BDTR_MOE;
 }
-
-void set_PWM_1_duty_cycle(uint8 percentage)
+/*
+  * Function : set_PWM_2_duty_cycle
+  * Input : percentage
+  * Output : void
+  * Description :
+  * Set PWM duty cycle for motor speed control
+*/
+void set_PWM_2_CCR2(uint32 ticks)
 {
-  uint16_t desired_duty_cycle = (percentage / 100.0) * (TIM1->ARR + 1);
-  TIM1->CCR1 = desired_duty_cycle;
+  TIM2->CCR2 = ticks;
 }
 
+/*
+  * Function : setup_PWM_2
+  * Input : void
+  * Output : void
+  * Description :
+  * Enable Clock for used GPIO PORTs using Static Configurationin .
+  * Setup PWM signal for motor speed control
+  * Configure GPIO Pins for Motor Driver
+*/
 void set_PWM_2_duty_cycle(uint8 percentage)
 {
   uint16_t desired_duty_cycle = (percentage / 100.0) * (TIM2->ARR + 1);

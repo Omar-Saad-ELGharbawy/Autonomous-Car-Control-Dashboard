@@ -16,9 +16,12 @@
 /*******************************************************************************
  *                      Functions Definitions                                  *
  *******************************************************************************/
-
-
-
+/* 
+ * Description: Function to receive frame from the user and check if frame is ture or false. 
+ * Frame is true only if it ends with E at index 7 and it consists of 8 bytes 
+ * Inputs: pointer to frame
+ * Output: void
+ */
 uint8 check_frame(uint8 *frame){
 	uint8 frame_size = 0;
 	uint8 i=0;
@@ -34,6 +37,16 @@ uint8 check_frame(uint8 *frame){
 	}
 }
 
+/*
+ * Description: Function to extract data from frame and store it in strcut data type for frame
+* Extracted Data :
+* - Speed : 3 Bytes
+* - Angle : 2 Bytes
+* - first_motor_direction : 1 Byte
+* - second_motor_direction : 1 Byte
+* Inputs: pointer to frame, pointer to frame data structure
+* Output: void
+*/
 void extract_data(uint8 *frame , FrameType * frame_data_ptr){
 	/* Extract data from Frame*/
 		//	uint8 frame_size;
@@ -58,8 +71,6 @@ void extract_data(uint8 *frame , FrameType * frame_data_ptr){
 	/* Extract Byte 6 for second motor direction (R or L)*/
 	second_motor_direction = frame[6];
 	frame_data_ptr->second_motor_direction = second_motor_direction;
-
-
 	/* Extract the last 2 Bytes for Angle*/
 	for (uint8 i=0; i<2; i++){
 	angle_str[i] = frame[i+4];
@@ -67,17 +78,23 @@ void extract_data(uint8 *frame , FrameType * frame_data_ptr){
 	speed_str[2] = '\0';
 	/* Convert angle String to Integer */
 	int angle = convertToInt(angle_str);
-
+	if (frame_data_ptr->second_motor_direction == 'L' ){
+	angle = -angle;
+	}
 	frame_data_ptr->wheels_angle = angle;
 }
 
+/*
+ * Description: Function to check if data extracted from frame is ture or false. 
+ * Data is true only if :
+ * - The speed is between 0 and 100
+ * - The angle is between -45 and 45
+ * - first_motor_direction is F or B
+ * - second_motor_direction is R or L
+ * Inputs: pointer to frame data structure
+ * Output: void
+*/
 uint8 check_data(FrameType * frame_data_ptr){
-	/* Check Data : Data is true only if :
-	- The speed is between 0 and 100
-	- The angle is between -45 and 45
-	- first_motor_direction is F or B
-	- second_motor_direction is R or L
-	*/
 	if( (frame_data_ptr->motor_speed <= 100) && (frame_data_ptr->motor_speed >= 0)
 		&& (frame_data_ptr->wheels_angle <= 45) && (frame_data_ptr->wheels_angle >= -45)
 		&& ((frame_data_ptr->first_motor_direction == 'F') || (frame_data_ptr->first_motor_direction == 'B'))
@@ -87,38 +104,68 @@ uint8 check_data(FrameType * frame_data_ptr){
 		return UN_VALID_FRAME;
 	}
 }
-
+/*
+ * Description: Function to update LCD Dashboard with frame data :
+ * - DC Motor Speed
+ * - Servo Motor Angle
+ * Inputs: pointer to frame data structure
+ * Output: void
+*/
 void update_frame_dashboard(FrameType * frame_data_ptr){
-	/* clear the LCD display */
-//	LCD_clearScreen();
-	LCD_displayStringRowColumn(0,3,"Speed:    % Direction: ");
-	LCD_moveCursor(0, 9);
+	LCD_displayStringRowColumn(0,3,"Speed:    % Direction:   ");
+	LCD_moveCursor(0, 10);
 	LCD_intgerToString(frame_data_ptr->motor_speed);
-	LCD_moveCursor(0, 27);
-	if (frame_data_ptr->second_motor_direction == 'L' ){
-	LCD_displayCharacter('-');
-	}else
-	{
-	LCD_displayCharacter('+');
-	}
-	LCD_moveCursor(0, 28);
+	LCD_moveCursor(0, 26);
 	LCD_intgerToString(frame_data_ptr->wheels_angle);
 }
-
-/* Update LCD Dashboard with time data*/
+/*
+ * Description: Function to update LCD Dashboard with time data :
+ * - Seconds
+ * - Minutes
+ * - Hours
+ * - Day or Night
+ * inputs : seconds,minutes,hours,g_day_night
+ * Output: void
+*/
 void update_time_dashboard(uint8 seconds, uint8 minutes, uint8 hours,uint8 g_day_night[]){
 	/* clear the LCD display */
-	LCD_displayStringRowColumn(1,7,"Time:   :  :   ");
-	LCD_moveCursor(1, 13);
-	LCD_intgerToString(hours);
-	LCD_moveCursor(1, 16);
-	LCD_intgerToString(minutes);
-	LCD_moveCursor(1, 19);
-	LCD_intgerToString(seconds);
-	LCD_displayStringRowColumn(1,22,g_day_night);
+	LCD_moveCursor(1, 7);
+	LCD_displayStringRowColumn(1,9,"Time:00:00:00");
+	if(seconds <10){
+		LCD_moveCursor(1, 20);
+		LCD_intgerToString(0);
+		LCD_moveCursor(1, 21);
+		LCD_intgerToString(seconds);
+	}else{
+		LCD_moveCursor(1, 20);
+		LCD_intgerToString(seconds);
+	}
+	if(minutes <10){
+		LCD_moveCursor(1, 17);
+		LCD_intgerToString(0);
+		LCD_moveCursor(1, 18);
+		LCD_intgerToString(minutes);
+	}else{
+		LCD_moveCursor(1, 17);
+		LCD_intgerToString(minutes);
+	}
+	if(hours <10){
+		LCD_moveCursor(1, 14);
+		LCD_intgerToString(0);
+		LCD_moveCursor(1, 15);
+		LCD_intgerToString(hours);
+	}else{
+		LCD_moveCursor(1, 14);
+		LCD_intgerToString(hours);
+	}
+	LCD_displayStringRowColumn(1,24,g_day_night);
 }
 
-
+/*
+ * Description: Function to convert string to integer
+ * Inputs: pointer to string
+ * Output: integer
+*/
 int convertToInt(uint8 str[]) {
     int result = 0;
     int i = 0;
@@ -141,7 +188,11 @@ int convertToInt(uint8 str[]) {
     return result;
 }
 
-
+/*
+ * Description: Function to convert integer to string
+ * Inputs: integer
+ * Output: pointer to string
+*/
 char* convertToString(int number) {
     int numDigits = 0;
     int temp = number;
@@ -160,7 +211,6 @@ char* convertToString(int number) {
             temp /= 10;
         }
     }
-
     // Allocate memory for the string representation
     char* str = (char *)malloc((numDigits + 1) * sizeof(char));
 
@@ -169,7 +219,6 @@ char* convertToString(int number) {
         str[0] = '-';
         number = -number;
     }
-
     // Convert each digit to a character and store in the string
     int i = numDigits - 1;
     while (number != 0) {
@@ -177,16 +226,19 @@ char* convertToString(int number) {
         number /= 10;
         i--;
     }
-
     // Null-terminate the string
     str[numDigits] = '\0';
 
     return str;
 }
 
-
+/*
+ * Description: Function to delay for 1ms
+ * Inputs: void
+ * Output: void
+*/
 void delay_ms(uint32 ms){
 	/*wait 1s by for loop*/
-	for(uint32 i = 0; i < ms; i++)
+	for(uint32 i = 0; i < ms*ONE_MS_TICKS; i++)
 	{}
 }

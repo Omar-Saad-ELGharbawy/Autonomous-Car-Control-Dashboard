@@ -9,13 +9,10 @@
  * Author: Omar Saad
  *
  *******************************************************************************/
-
-
 #ifndef SERVICES_H_
 #define SERVICES_H_
 
 #include "../Libraries/Std_Types.h"
-
 
 /*******************************************************************************
  *                                Definitions                                  *
@@ -40,7 +37,6 @@ typedef struct {
 	uint8 second_motor_direction;
 	sint8 wheels_angle;
 } FrameType;
-
 
 
 /*******************************************************************************

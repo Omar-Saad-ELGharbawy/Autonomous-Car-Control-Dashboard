@@ -20,17 +20,23 @@
 #include "Gpio.h"
 #include "stm32f401xe.h"
 
-
+/*
+  * Function : Usart2_Init
+  * Input : void
+  * Output : void
+  * Description :
+  * Enable Clock for used GPIO PORTs using Static Configurationin .
+  * Setup USART2 for serial communication
+  * Configure GPIO Pins for USART2
+*/
 void Usart2_Init(void) {
   Rcc_Enable(RCC_USART2);
   Rcc_Enable(RCC_GPIOA);
   /* Configure GPIO pins for USART2 */
 
   Gpio_ConfigPin(GPIO_A, 2, GPIO_AF, GPIO_PUSH_PULL,NOT_INPUT);
-  Gpio_ConfigPin(GPIO_A, 3, GPIO_AF, GPIO_PUSH_PULL,NOT_INPUT);
-
+  Gpio_ConfigPin(GPIO_A, 3, GPIO_AF, GPIO_PUSH_PULL,NOT_INPUT)
   /* Alternate function selection of AF7 for port A for bits 2 & 3 to work as RX and TX */
-
   INSERT_4BITS_BLOCK(GPIOA->AFR[0], 2, 7);
   INSERT_4BITS_BLOCK(GPIOA->AFR[0], 3, 7);
 
@@ -53,7 +59,13 @@ void Usart2_Init(void) {
   /* Enable USART2 */
   SET_BIT(USART2->CR1, 13);
 }
-
+/*
+  * Function : Usart2_TransmitByte
+  * Input : Byte
+  * Output : uint8
+  * Description :
+  * Transmit Byte using USART2
+*/
 uint8 Usart2_TransmitByte(uint8 Byte){
   /*
     * Check if the transmit data register is empty
@@ -73,7 +85,13 @@ uint8 Usart2_TransmitByte(uint8 Byte){
   }
   return NOK;
 }
-
+/*
+  * Function : Usart2_TransmitString
+  * Input : Str
+  * Output : void
+  * Description :
+  * Transmit String using USART2
+*/
 void Usart2_TransmitString(const char* Str) {
   unsigned char i = 0;
   while (Str[i] != '\0') {
@@ -81,7 +99,13 @@ void Usart2_TransmitString(const char* Str) {
       i++;
     }
   }
-
+/*
+  * Function : Usart2_ReceiveByte
+  * Input : void
+  * Output : uint8
+  * Description :
+  * Receive Byte using USART2
+*/
 uint8 Usart2_ReceiveByte(void){
   /* Wait until the data is received by checking the
   * Receive Data Ready flag in the status register
@@ -89,7 +113,13 @@ uint8 Usart2_ReceiveByte(void){
   while(BIT_IS_CLEAR(USART2->SR ,5)){}
   return USART2->DR;
 }
-
+/*
+  * Function : Usart2_ReceiveString
+  * Input : Str
+  * Output : void
+  * Description :
+  * Receive String using USART2
+*/
 void Uart2_ReceiveString(uint8 *Str)
 {
 	uint8 i = 0;
@@ -103,6 +133,3 @@ void Uart2_ReceiveString(uint8 *Str)
 	/* After receiving the whole string plus the '\r', replace the '\r' with '\0' */
 	Str[i] = '\0';
 }
-
-
-

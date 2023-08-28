@@ -10,16 +10,22 @@
 #include "../../MCAL/PWM/PWM.h"
 #include "../../Services/Services.h"
 
-
+/*
+    * Description: Function to initialize the servo motor by 
+    * initializing the PWM
+    * Inputs: void
+    * Output: void
+*/
 void Servo_Motor_Init(void){
     /* Initialize the PWM */
     setup_PWM_2();
 }
-
-void Servo_Motor_SetAngle(uint8 angle){
+/*
+    * Description: Function to set the angle of the servo motor
+    * Inputs: angle
+    * Output: void
+*/
+void Servo_Motor_SetAngle(sint8 angle){
     /* Set the angle of the servo motor */
-	set_PWM_2_duty_cycle(angle+55);
-//	delay_ms(1500); 8
-	delay_ms(1801);
-	set_PWM_2_duty_cycle(0);
+	set_PWM_2_CCR2(1500 + (angle*10));
 }

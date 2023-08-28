@@ -18,4 +18,8 @@ void set_PWM_1_duty_cycle(uint8 percentage);
 
 void set_PWM_2_duty_cycle(uint8 percentage);
 
+void set_PWM_1_CCR2(uint32 ticks);
+
+void set_PWM_2_CCR2(uint32 ticks);
+
 #endif /* PWM_H_ */
