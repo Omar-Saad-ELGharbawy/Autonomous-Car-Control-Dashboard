@@ -1,20 +1,11 @@
-/* *****************************************************************************
- * Module: LCD
- *
- * File Name: Lcd.h
- *
- * Description: Source file for the STM32 LCD driver
- *
- * Author: Omar Saad
- *
- *******************************************************************************/
+
+#include "../../Services/Includes/Services.h"
 #include "Lcd.h"
 
 #include "../../MCAL/Gpio/Gpio.h"
 #include "../../MCAL/Rcc/Rcc.h"
 #include "../../Libraries/Macros.h"
 #include "../../Libraries/Utils.h"
-#include "../../Services/Services.h"
 
 /*******************************************************************************
  *                      Functions Definitions                                  *

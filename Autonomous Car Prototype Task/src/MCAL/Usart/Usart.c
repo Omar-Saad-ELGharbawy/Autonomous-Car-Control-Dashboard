@@ -14,10 +14,8 @@
 #include "Usart.h"
 
 #include "../../Libraries/Macros.h"
-
 #include "../Rcc/Rcc.h"
-
-#include "Gpio.h"
+#include "../Gpio/Gpio.h"
 #include "stm32f401xe.h"
 
 /*
@@ -35,7 +33,7 @@ void Usart2_Init(void) {
   /* Configure GPIO pins for USART2 */
 
   Gpio_ConfigPin(GPIO_A, 2, GPIO_AF, GPIO_PUSH_PULL,NOT_INPUT);
-  Gpio_ConfigPin(GPIO_A, 3, GPIO_AF, GPIO_PUSH_PULL,NOT_INPUT)
+  Gpio_ConfigPin(GPIO_A, 3, GPIO_AF, GPIO_PUSH_PULL,NOT_INPUT);
   /* Alternate function selection of AF7 for port A for bits 2 & 3 to work as RX and TX */
   INSERT_4BITS_BLOCK(GPIOA->AFR[0], 2, 7);
   INSERT_4BITS_BLOCK(GPIOA->AFR[0], 3, 7);
@@ -92,7 +90,7 @@ uint8 Usart2_TransmitByte(uint8 Byte){
   * Description :
   * Transmit String using USART2
 */
-void Usart2_TransmitString(const char* Str) {
+void Usart2_TransmitString(const uint8* Str) {
   unsigned char i = 0;
   while (Str[i] != '\0') {
 	  Usart2_TransmitByte(Str[i]);

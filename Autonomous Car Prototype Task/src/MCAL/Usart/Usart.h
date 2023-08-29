@@ -43,7 +43,7 @@ uint8 Usart2_TransmitByte(uint8 Byte);
 *
 *   returns: received byte
 */
-void Usart2_TransmitString(const char* Str);
+void Usart2_TransmitString(const uint8* Str);
 
 /*
 * Function: Usart2_ReceiveByte

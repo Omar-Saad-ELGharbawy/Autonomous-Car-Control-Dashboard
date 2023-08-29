@@ -5,10 +5,10 @@
  *      Author: Omar Saad
  */
 
+#include "../../Services/Includes/Services.h"
 #include "Servo_Motor.h"
 
 #include "../../MCAL/PWM/PWM.h"
-#include "../../Services/Services.h"
 
 /*
     * Description: Function to initialize the servo motor by 
