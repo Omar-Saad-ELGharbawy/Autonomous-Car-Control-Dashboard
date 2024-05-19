@@ -76,7 +76,7 @@ README.md
 
 ### Application Preview
 
-**Simulation**
+[**Simulation**](https://github.com/Omar-Saad-ELGharbawy/Autonomous-Car-Control-Dashboard/blob/main/Simulation/Autonomous%20Car%20Prototype.pdsprj)
 
 ![Proteus_Simulation](https://github.com/Omar-Saad-ELGharbawy/Autonomous-Car-Control-Dashboard/assets/84602951/ea8c39cd-426e-45ab-ac77-231f654cbfa6)
 
@@ -88,4 +88,5 @@ README.md
 
 ![Test Cases](https://github.com/Omar-Saad-ELGharbawy/Autonomous-Car-Control-Dashboard/assets/84602951/f8661fb4-f9c0-43ac-a0d2-11bb828ba808)
 
-
+[Videos](https://github.com/Omar-Saad-ELGharbawy/Autonomous-Car-Control-Dashboard/tree/main/Video)
+  
