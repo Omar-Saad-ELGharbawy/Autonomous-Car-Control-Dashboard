@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "dc_motor_interface.h": "c",
+        "std_types.h": "c"
+    }
+}
