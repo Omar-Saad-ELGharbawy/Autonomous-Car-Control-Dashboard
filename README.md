@@ -88,5 +88,5 @@ README.md
 
 ![Test Cases](https://github.com/Omar-Saad-ELGharbawy/Autonomous-Car-Control-Dashboard/assets/84602951/f8661fb4-f9c0-43ac-a0d2-11bb828ba808)
 
-[Videos](https://github.com/Omar-Saad-ELGharbawy/Autonomous-Car-Control-Dashboard/tree/main/Video)
+[**Videos**](https://github.com/Omar-Saad-ELGharbawy/Autonomous-Car-Control-Dashboard/tree/main/Video)
   
