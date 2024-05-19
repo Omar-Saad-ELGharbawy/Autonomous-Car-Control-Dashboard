@@ -76,13 +76,16 @@ README.md
 
 ### Application Preview
 
-**Simulation**:
+**Simulation**
+
 ![Proteus_Simulation](https://github.com/Omar-Saad-ELGharbawy/Autonomous-Car-Control-Dashboard/assets/84602951/ea8c39cd-426e-45ab-ac77-231f654cbfa6)
 
-**Simulation Working**:
+**Simulation Working**
+
 ![Simulation_Working](https://github.com/Omar-Saad-ELGharbawy/Autonomous-Car-Control-Dashboard/assets/84602951/f1ff31ed-0e28-4c6f-bf90-a72666d803da)
 
-**Command Frame**:
+**Command Frame**
+
 ![Test Cases](https://github.com/Omar-Saad-ELGharbawy/Autonomous-Car-Control-Dashboard/assets/84602951/f8661fb4-f9c0-43ac-a0d2-11bb828ba808)
 
 
